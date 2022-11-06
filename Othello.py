@@ -1,0 +1,3 @@
+
+class OthelloPiece():
+    pass

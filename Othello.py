@@ -1,6 +1,6 @@
 import arcade
 
-SCREEN_WIDTH = 700
+SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 700
 SCREEN_TITLE = "Othello"
 SCALING = 2.0
@@ -30,14 +30,14 @@ class Game_Board():
         self.color = color
         self.rows = rows
     def draw_game_board(self):
-        arcade.draw_rectangle_filled(400, 400, 800, 800, self.color)
-        arcade.draw_line(2, 00, 2, SCREEN_WIDTH, arcade.color.BLACK, 3)
-        arcade.draw_line(SCREEN_WIDTH, 00, SCREEN_WIDTH, SCREEN_WIDTH, arcade.color.BLACK, 3)
-        arcade.draw_line(0, 1, SCREEN_WIDTH+1, 1, arcade.color.BLACK, 3)
+        arcade.draw_rectangle_filled(SCREEN_HEIGHT/2, SCREEN_HEIGHT/2, SCREEN_HEIGHT, SCREEN_HEIGHT, self.color)
+        arcade.draw_line(2, 00, 2, SCREEN_HEIGHT, arcade.color.BLACK, 3)
+        arcade.draw_line(SCREEN_HEIGHT, 00, SCREEN_HEIGHT, SCREEN_HEIGHT, arcade.color.BLACK, 3)
+        arcade.draw_line(0, 1, SCREEN_HEIGHT+1, 1, arcade.color.BLACK, 3)
         arcade.draw_line(0, SCREEN_HEIGHT-1, SCREEN_WIDTH-1, SCREEN_HEIGHT-1, arcade.color.BLACK, 3)
-        for distance in range(0, SCREEN_WIDTH, SCREEN_WIDTH//self.rows):
-                arcade.draw_line(distance, 00, distance, SCREEN_WIDTH, arcade.color.BLACK, 3)
-                arcade.draw_line(0, distance, SCREEN_WIDTH, distance, arcade.color.BLACK, 3)
+        for distance in range(0, SCREEN_HEIGHT, SCREEN_HEIGHT//self.rows):
+                arcade.draw_line(distance, 00, distance, SCREEN_HEIGHT, arcade.color.BLACK, 3)
+                arcade.draw_line(0, distance, SCREEN_HEIGHT, distance, arcade.color.BLACK, 3)
         game_piece = OthelloPiece()
         white_piece = game_piece.create_game_piece(arcade.color.WHITE, 20, 40)
         black_piece = game_piece.create_game_piece(arcade.color.BLACK, 30, 50)

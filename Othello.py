@@ -7,10 +7,11 @@ SCALING = 2.0
 
 
 class OthelloPiece():
-    def __init__(self, color, position_x, position_y):
+    def __init__(self, color, position_x, position_y, size):
         self.color = color
         self.position_x = position_x
         self.position_y = position_y
+        self.size = size
 
     def create_game_piece(self):
         """ 
@@ -19,7 +20,7 @@ class OthelloPiece():
         Input: Self, String
         Output: 
         """
-        arcade.draw_circle_filled(self.position_x, self.position_y, 50, self.color)
+        arcade.draw_circle_filled(self.position_x, self.position_y, self.size, self.color)
 
         
 
@@ -77,10 +78,11 @@ class Othello(arcade.Window):
         board.draw_game_board()
 
 rows = int(input("Enter how many rows you want the game board to be"))
+piece_size = int(250//rows)
 # Main code entry point
 if __name__ == "__main__":
     game = Othello()
     board = Game_Board(arcade.color.FOREST_GREEN, rows)
-    white_piece = OthelloPiece(arcade.color.WHITE, 20, 40)
-    black_piece = OthelloPiece(arcade.color.BLACK, 30, 50)
+    white_piece = OthelloPiece(arcade.color.WHITE, 20, 40, piece_size)
+    black_piece = OthelloPiece(arcade.color.BLACK, 100, 100, piece_size)
     arcade.run()

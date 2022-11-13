@@ -64,7 +64,11 @@ class Othello(arcade.Window):
 
 
     def next_turn(self):
-        pass
+        if self.player_turn == player_1:
+            self.player_turn = player_2
+        else:
+            self.player_turn = player_1
+
     def determine_first_player(self):
         self.first_player_choose = random.randint(0,1)
         if self.first_player_choose == 1:
@@ -84,7 +88,8 @@ class Othello(arcade.Window):
             else:
                 pass
     def player_1_turn(self):
-        pass
+        self.player_turn = player_1
+
     def player_2_turn(self):
         pass
 
@@ -96,6 +101,7 @@ class Othello(arcade.Window):
         self.black_piece.center_y = y
         self.othello_piece_list.append(self.black_piece)
         self.place_piece()
+        self.next_turn()
        
     def place_piece(self):
         for i in range(0,SCREEN_HEIGHT, self.square_dist):
@@ -108,7 +114,10 @@ class Othello(arcade.Window):
                 break
             else:
                 self.y +=1
-        self.board_array[rows-1-self.y, self.x] = 1
+        if self.player_turn == player_1:
+            self.board_array[rows-1-self.y, self.x] = 1
+        else:
+            self.board_array[rows-1-self.y, self.x] = 2
         self.x = 0
         self.y = 0
         print(self.board_array)

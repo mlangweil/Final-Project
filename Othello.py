@@ -1,5 +1,5 @@
 import arcade
-import pyglet
+import random
 
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 700
@@ -26,8 +26,7 @@ class Game_Board():
         for distance in range(0, SCREEN_HEIGHT, SCREEN_HEIGHT//self.rows):
                 arcade.draw_line(distance, 00, distance, SCREEN_HEIGHT, arcade.color.BLACK, 3)
                 arcade.draw_line(0, distance, SCREEN_HEIGHT, distance, arcade.color.BLACK, 3)
-        
-        
+     
 
 
 
@@ -41,6 +40,12 @@ class Othello(arcade.Window):
         arcade.set_background_color(arcade.color.WHITE) 
         self.othello_piece_list = None
         self.black_piece = None
+        self.black_score = 0
+        self.white_score = 0
+        self.player_turn = ""
+        self.player_1_moves = 0
+        self.player_2_moves = 0
+
         
     def setup(self):
         self.othello_piece_list = arcade.SpriteList()  
@@ -51,16 +56,30 @@ class Othello(arcade.Window):
        pass
 
     def show_score(self):
-        pass
+        arcade.draw_text("Score:" + str(score), 483, 405, arcade.color.BLACK, 12)
+
     def next_turn(self):
         pass
     def determine_first_player(self):
-        pass
+        self.first_player_choose = random.randint(0,1)
+        if self.first_player_choose == 1:
+            self.player_1_turn()
+        else:
+            self.player_2_turn()
+
+
     def flip_pieces(self):
         pass
-    def winner(self):
+    def check_winner(self):
+        if self.black_score > self.white_score:
+            pass
+        elif self.white_score > self.black_score:
+            pass
+        else:
+            pass
+    def player_1_turn(self):
         pass
-    def start(self):
+    def player_2_turn(self):
         pass
 
     def draw_game_board(self):
@@ -70,6 +89,21 @@ class Othello(arcade.Window):
         self.black_piece.center_x = x
         self.black_piece.center_y = y
         self.othello_piece_list.append(self.black_piece)
+        if self.first_player_choose == 1:
+            self.player_1_moves +=1
+            self.check_winner()
+
+            self.player_2_turn = "PLAYER2"
+
+        else:
+            self.player_2_turn()
+            self.player_2_moves +=1
+            self.check_winner()
+
+            self.player_1_turn = "PLAYER1"
+
+
+
        
         
     def on_draw(self):

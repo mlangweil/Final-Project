@@ -55,7 +55,10 @@ class Othello(arcade.Window):
 
         
     def setup(self):
-        self.othello_piece_list = arcade.SpriteList()  
+        self.othello_piece_list = arcade.SpriteList() 
+        self.determine_first_player() 
+        self.black_piece = arcade.Sprite(":resources:onscreen_controls/shaded_dark/unchecked.png", piece_size/25)
+
 
 
     def show_score(self):
@@ -66,15 +69,19 @@ class Othello(arcade.Window):
     def next_turn(self):
         if self.player_turn == player_1:
             self.player_turn = player_2
-        else:
+        elif self.player_turn == player_2:
             self.player_turn = player_1
 
     def determine_first_player(self):
         self.first_player_choose = random.randint(0,1)
         if self.first_player_choose == 1:
+            arcade.draw_text(str(player_1) + " starts!" , 750, 420, arcade.color.BLACK, 30)
             self.player_1_turn()
+
         else:
+            arcade.draw_text(str(player_2) + " starts!" , 750, 420, arcade.color.BLACK, 30)
             self.player_2_turn()
+
 
 
     def flip_pieces(self):
@@ -91,18 +98,24 @@ class Othello(arcade.Window):
         self.player_turn = player_1
 
     def player_2_turn(self):
-        pass
+        self.player_turn = player_2
 
-    def draw_game_board(self):
-        pass
+
     def on_mouse_press(self, x, y, button, modifiers):
-        self.black_piece = arcade.Sprite(":resources:onscreen_controls/shaded_dark/unchecked.png", piece_size/25)
-        self.black_piece.center_x = x
-        self.black_piece.center_y = y
-        self.othello_piece_list.append(self.black_piece)
-        self.place_piece()
-        self.next_turn()
-       
+        if self.player_turn == player_1:
+            self.black_piece = arcade.Sprite(":resources:onscreen_controls/shaded_dark/unchecked.png", piece_size/25)
+            self.black_piece.center_x = x
+            self.black_piece.center_y = y
+            self.othello_piece_list.append(self.black_piece)
+            self.place_piece()
+        else:
+            self.black_piece = arcade.Sprite(":resources:onscreen_controls/shaded_light/unchecked.png", piece_size/25)
+            self.black_piece.center_x = x
+            self.black_piece.center_y = y
+            self.othello_piece_list.append(self.black_piece)
+            self.place_piece()
+            
+        
     def place_piece(self):
         for i in range(0,SCREEN_HEIGHT, self.square_dist):
             if i< self.black_piece.center_x < self.square_dist + i: 
@@ -120,6 +133,7 @@ class Othello(arcade.Window):
             self.board_array[rows-1-self.y, self.x] = 2
         self.x = 0
         self.y = 0
+        self.next_turn()
         print(self.board_array)
 
 

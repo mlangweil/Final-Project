@@ -5,8 +5,10 @@ SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 700
 SCREEN_TITLE = "Othello"
 SCALING = 2.0
-     
 
+
+
+        
 
 class Game_Board():
     def __init__(self, color, rows):
@@ -38,9 +40,7 @@ class Othello(arcade.Window):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
         arcade.set_background_color(arcade.color.WHITE) 
         self.othello_piece_list = None
-        self.black_piece = arcade.Sprite(":resources:onscreen_controls/shaded_dark/unchecked.png", piece_size/25)
-        self.white_piece = arcade.Sprite(":resources:onscreen_controls/shaded_light/unchecked.png", piece_size/25)
-
+        self.black_piece = None
         
     def setup(self):
         self.othello_piece_list = arcade.SpriteList()  
@@ -66,6 +66,7 @@ class Othello(arcade.Window):
     def draw_game_board(self):
         pass
     def on_mouse_press(self, x, y, button, modifiers):
+        self.black_piece = arcade.Sprite(":resources:onscreen_controls/shaded_dark/unchecked.png", piece_size/25)
         self.black_piece.center_x = x
         self.black_piece.center_y = y
         self.othello_piece_list.append(self.black_piece)

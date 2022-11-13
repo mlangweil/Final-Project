@@ -65,11 +65,7 @@ class Othello(arcade.Window):
         self.black_piece = arcade.Sprite(":resources:onscreen_controls/shaded_dark/unchecked.png", piece_size/25)
         self.white_piece = arcade.Sprite(":resources:onscreen_controls/shaded_light/unchecked.png", piece_size/25)
         
-        self.scene.add_sprite("Player", self.black_piece)
-        if self.black_moves + self.white_moves == 0:
-            self.black_piece.center_x = 40
-            self.black_piece.center_y = 40
-            
+        
 
 
 
@@ -155,7 +151,7 @@ class Othello(arcade.Window):
         """ Called whenever we need to draw the window. """
         arcade.start_render()
         board.draw_game_board()
-        self.black_piece.draw()
+        self.othello_piece_list.draw()
         self.show_score()
        
 rows= 1  

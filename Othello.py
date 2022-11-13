@@ -5,31 +5,7 @@ SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 700
 SCREEN_TITLE = "Othello"
 SCALING = 2.0
-
-
-class OthelloPiece():
-    def __init__(self, color, size, x, y):
-        self.color = color
-        self.size = size
-        self.x = x
-        self.y = y
-
-        
-        
-        
-    def create_game_piece(self):
-        """ 
-        Creates black or white game piece
-
-        Input: Self, String
-        Output: 
-        """
-        print("pernid")
-        arcade.draw_circle_filled(center_x=self.x, center_y=self.y, radius=self.size, color=self.color)
-        
-        
-
-        
+     
 
 
 class Game_Board():
@@ -61,11 +37,13 @@ class Othello(arcade.Window):
         """
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
         arcade.set_background_color(arcade.color.WHITE) 
-        self.player_list = None
-        self.wall = None
+        self.othello_piece_list = None
+        self.black_piece = arcade.Sprite(":resources:onscreen_controls/shaded_dark/unchecked.png", piece_size/25)
+        self.white_piece = arcade.Sprite(":resources:onscreen_controls/shaded_light/unchecked.png", piece_size/25)
+
         
     def setup(self):
-        self.player_list = arcade.SpriteList()  
+        self.othello_piece_list = arcade.SpriteList()  
 
 
     
@@ -88,27 +66,24 @@ class Othello(arcade.Window):
     def draw_game_board(self):
         pass
     def on_mouse_press(self, x, y, button, modifiers):
-        self.wall = arcade.Sprite(":resources:images/tiles/grassMid.png", 1)
-        self.wall.center_x = x
-        self.wall.center_y = y
-        self.wall.draw()
-        self.player_list.append(self.wall)
+        self.black_piece.center_x = x
+        self.black_piece.center_y = y
+        self.othello_piece_list.append(self.black_piece)
        
         
     def on_draw(self):
         """ Called whenever we need to draw the window. """
         arcade.start_render()
         board.draw_game_board()
-        self.player_list.draw()
+        self.othello_piece_list.draw()
        
         
 
-rows = int(input("Enter how many rows you want the game board to be"))
+rows = int(input("Enter how many rows you want the game board to be."))
 piece_size = int(250//rows)
 # Main code entry point
 if __name__ == "__main__":
     game = Othello()
     game.setup()
     board = Game_Board(arcade.color.FOREST_GREEN, rows)
-    
     arcade.run()

@@ -43,8 +43,9 @@ class Othello(arcade.Window):
         self.black_score = 0
         self.white_score = 0
         self.player_turn = ""
-        self.player_1_moves = 0
-        self.player_2_moves = 0
+        self.black_moves = 0
+        self.white_moves = 0
+        self.board_array = [[]*rows]*rows
 
         
     def setup(self):
@@ -71,12 +72,13 @@ class Othello(arcade.Window):
     def flip_pieces(self):
         pass
     def check_winner(self):
-        if self.black_score > self.white_score:
-            pass
-        elif self.white_score > self.black_score:
-            pass
-        else:
-            pass
+        if self.black_moves + self.white_moves == (rows * rows):
+            if self.black_score > self.white_score:
+                pass
+            elif self.white_score > self.black_score:
+                pass
+            else:
+                pass
     def player_1_turn(self):
         pass
     def player_2_turn(self):

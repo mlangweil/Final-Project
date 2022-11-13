@@ -82,9 +82,10 @@ class Othello(arcade.Window):
 
 rows = int(input("Enter how many rows you want the game board to be."))
 piece_size = int(250//rows)
-# Main code entry point
-if __name__ == "__main__":
+board = Game_Board(arcade.color.FOREST_GREEN, rows)
+def main():
     game = Othello()
     game.setup()
-    board = Game_Board(arcade.color.FOREST_GREEN, rows)
     arcade.run()
+if __name__ == "__main__":
+    main()

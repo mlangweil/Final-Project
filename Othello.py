@@ -1,6 +1,7 @@
 import arcade
 import random
 import numpy as np
+import math
 
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 700
@@ -41,6 +42,9 @@ class Othello(arcade.Window):
         arcade.set_background_color(arcade.color.WHITE) 
         self.othello_piece_list = None
         self.black_piece = None
+        self.white_piece = None
+
+        
         self.black_score = 0
         self.white_score = 0
         self.player_turn = ""
@@ -50,14 +54,15 @@ class Othello(arcade.Window):
         self.board_array = np.zeros(shape=(rows, rows), dtype=int)
         self.y = 0
         self.x = 0
-        self.place_x = False
-        self.place_y = False
+        
 
         
     def setup(self):
         self.othello_piece_list = arcade.SpriteList() 
         self.determine_first_player() 
         self.black_piece = arcade.Sprite(":resources:onscreen_controls/shaded_dark/unchecked.png", piece_size/25)
+        self.white_piece = arcade.Sprite(":resources:onscreen_controls/shaded_light/unchecked.png", piece_size/25)
+
 
 
 
@@ -102,28 +107,26 @@ class Othello(arcade.Window):
 
 
     def on_mouse_press(self, x, y, button, modifiers):
+        self.black_piece = arcade.Sprite(":resources:onscreen_controls/shaded_dark/unchecked.png", piece_size/25)
+        self.white_piece = arcade.Sprite(":resources:onscreen_controls/shaded_light/unchecked.png", piece_size/25)
+
         if self.player_turn == player_1:
-            self.black_piece = arcade.Sprite(":resources:onscreen_controls/shaded_dark/unchecked.png", piece_size/25)
-            self.black_piece.center_x = x
-            self.black_piece.center_y = y
-            self.othello_piece_list.append(self.black_piece)
-            self.place_piece()
+            self.current_piece = self.black_piece
         else:
-            self.black_piece = arcade.Sprite(":resources:onscreen_controls/shaded_light/unchecked.png", piece_size/25)
-            self.black_piece.center_x = x
-            self.black_piece.center_y = y
-            self.othello_piece_list.append(self.black_piece)
-            self.place_piece()
-            
+            self.current_piece = self.white_piece
+        self.current_piece.center_x = x
+        self.current_piece.center_y = y
+        self.othello_piece_list.append(self.current_piece)
+        self.place_piece()
         
     def place_piece(self):
         for i in range(0,SCREEN_HEIGHT, self.square_dist):
-            if i< self.black_piece.center_x < self.square_dist + i: 
+            if i< self.current_piece.center_x < self.square_dist + i: 
                 break
             else: 
                 self.x +=1
         for i in range(0,SCREEN_HEIGHT, self.square_dist):
-            if i< self.black_piece.center_y < self.square_dist + i:
+            if i< self.current_piece.center_y < self.square_dist + i:
                 break
             else:
                 self.y +=1
@@ -149,7 +152,7 @@ class Othello(arcade.Window):
        
         
 
-rows = int(input("Enter how many rows you want the game board to be."))
+rows = int(input("Enter how many rows you want the game board to be.(Has to be even)"))
 player_1 = str(input("Who wants to be player 1."))
 player_2 = str(input("Who wants to be player 2."))
 piece_size = int(250//rows)

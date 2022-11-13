@@ -57,7 +57,9 @@ class Othello(arcade.Window):
        pass
 
     def show_score(self):
-        arcade.draw_text("Score:" + str(score), 483, 405, arcade.color.BLACK, 12)
+        arcade.draw_text(str(player_1) + "'s score:" , 750, 320, arcade.color.BLACK, 30)
+        arcade.draw_text(str(player_2) + "'s score:" , 750, 220, arcade.color.BLACK, 30)
+
 
     def next_turn(self):
         pass
@@ -92,14 +94,14 @@ class Othello(arcade.Window):
         self.black_piece.center_y = y
         self.othello_piece_list.append(self.black_piece)
         if self.first_player_choose == 1:
-            self.player_1_moves +=1
+            self.black_moves +=1
             self.check_winner()
 
             self.player_2_turn = "PLAYER2"
 
         else:
             self.player_2_turn()
-            self.player_2_moves +=1
+            self.white_moves +=1
             self.check_winner()
 
             self.player_1_turn = "PLAYER1"
@@ -113,10 +115,13 @@ class Othello(arcade.Window):
         arcade.start_render()
         board.draw_game_board()
         self.othello_piece_list.draw()
+        self.show_score()
        
         
 
 rows = int(input("Enter how many rows you want the game board to be."))
+player_1 = str(input("Who wants to be player 1."))
+player_2 = str(input("Who wants to be player 2."))
 piece_size = int(250//rows)
 board = Game_Board(arcade.color.FOREST_GREEN, rows)
 def main():

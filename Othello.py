@@ -45,8 +45,8 @@ class Othello(arcade.Window):
         self.white_piece = None
 
         
-        self.black_score = 0
-        self.white_score = 0
+        self.player_2_score = 0
+        self.player_1_score = 0
         self.player_turn = ""
         self.black_moves = 0
         self.white_moves = 0
@@ -67,8 +67,8 @@ class Othello(arcade.Window):
 
 
     def show_score(self):
-        arcade.draw_text(str(player_1) + "'s score:" , 750, 320, arcade.color.BLACK, 30)
-        arcade.draw_text(str(player_2) + "'s score:" , 750, 220, arcade.color.BLACK, 30)
+        arcade.draw_text(str(player_1) + "'s score:\n" + str(self.player_1_score) , 720, 320, arcade.color.BLACK, 30)
+        arcade.draw_text(str(player_2) + "'s score:\n" + str(self.player_2_score) , 720, 220, arcade.color.BLACK, 30)
 
 
     def next_turn(self):
@@ -93,9 +93,9 @@ class Othello(arcade.Window):
         pass
     def check_winner(self):
         if self.black_moves + self.white_moves == (rows * rows):
-            if self.black_score > self.white_score:
+            if self.player_2_score > self.player_1_score:
                 pass
-            elif self.white_score > self.black_score:
+            elif self.player_1_score > self.player_2_score:
                 pass
             else:
                 pass
@@ -150,9 +150,10 @@ class Othello(arcade.Window):
         self.othello_piece_list.draw()
         self.show_score()
        
-        
+rows= 1  
+while rows < 4 or rows %2 ==1 :
+    rows = int(input("Enter how many rows you want the game board to be(greater than 4"))
 
-rows = int(input("Enter how many rows you want the game board to be.(Has to be even)"))
 player_1 = str(input("Who wants to be player 1."))
 player_2 = str(input("Who wants to be player 2."))
 piece_size = int(250//rows)

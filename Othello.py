@@ -58,10 +58,18 @@ class Othello(arcade.Window):
 
         
     def setup(self):
+        self.scene = arcade.Scene()
+
         self.othello_piece_list = arcade.SpriteList() 
         self.determine_first_player() 
         self.black_piece = arcade.Sprite(":resources:onscreen_controls/shaded_dark/unchecked.png", piece_size/25)
         self.white_piece = arcade.Sprite(":resources:onscreen_controls/shaded_light/unchecked.png", piece_size/25)
+        
+        self.scene.add_sprite("Player", self.black_piece)
+        if self.black_moves + self.white_moves == 0:
+            self.black_piece.center_x = 40
+            self.black_piece.center_y = 40
+            
 
 
 
@@ -147,12 +155,12 @@ class Othello(arcade.Window):
         """ Called whenever we need to draw the window. """
         arcade.start_render()
         board.draw_game_board()
-        self.othello_piece_list.draw()
+        self.black_piece.draw()
         self.show_score()
        
 rows= 1  
 while rows < 4 or rows %2 ==1 :
-    rows = int(input("Enter how many rows you want the game board to be(greater than 4"))
+    rows = int(input("Enter how many rows you want the game board to be (must begreater than 4 and even)"))
 
 player_1 = str(input("Who wants to be player 1."))
 player_2 = str(input("Who wants to be player 2."))

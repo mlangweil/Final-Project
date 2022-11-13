@@ -1,5 +1,6 @@
 import arcade
 import random
+import numpy as np
 
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 700
@@ -45,16 +46,17 @@ class Othello(arcade.Window):
         self.player_turn = ""
         self.black_moves = 0
         self.white_moves = 0
-        self.board_array = [[]*rows]*rows
+        self.square_dist = SCREEN_HEIGHT//rows
+        self.board_array = np.zeros(shape=(rows, rows), dtype=int)
+        self.y = 0
+        self.x = 0
+        self.place_x = False
+        self.place_y = False
 
         
     def setup(self):
         self.othello_piece_list = arcade.SpriteList()  
 
-
-    
-    def place_piece(self):
-       pass
 
     def show_score(self):
         arcade.draw_text(str(player_1) + "'s score:" , 750, 320, arcade.color.BLACK, 30)
@@ -93,18 +95,23 @@ class Othello(arcade.Window):
         self.black_piece.center_x = x
         self.black_piece.center_y = y
         self.othello_piece_list.append(self.black_piece)
-        if self.first_player_choose == 1:
-            self.black_moves +=1
-            self.check_winner()
-
-            self.player_2_turn = "PLAYER2"
-
-        else:
-            self.player_2_turn()
-            self.white_moves +=1
-            self.check_winner()
-
-            self.player_1_turn = "PLAYER1"
+        self.place_piece()
+       
+    def place_piece(self):
+        for i in range(0,SCREEN_HEIGHT, self.square_dist):
+            if i< self.black_piece.center_x < self.square_dist + i: 
+                break
+            else: 
+                self.x +=1
+        for i in range(0,SCREEN_HEIGHT, self.square_dist):
+            if i< self.black_piece.center_y < self.square_dist + i:
+                break
+            else:
+                self.y +=1
+        self.board_array[rows-1-self.y, self.x] = 1
+        self.x = 0
+        self.y = 0
+        print(self.board_array)
 
 
 

@@ -54,17 +54,18 @@ class Othello(arcade.Window):
         self.board_array = np.zeros(shape=(rows, rows), dtype=int)
         self.y = 0
         self.x = 0
-        
+        self.player_1_number = 1
+        self.player_2_number = 2
+        self.change_piece = 0
+     
 
         
     def setup(self):
         self.scene = arcade.Scene()
-
         self.othello_piece_list = arcade.SpriteList() 
-        self.determine_first_player() 
         self.black_piece = arcade.Sprite(":resources:onscreen_controls/shaded_dark/unchecked.png", piece_size/25)
         self.white_piece = arcade.Sprite(":resources:onscreen_controls/shaded_light/unchecked.png", piece_size/25)
-        
+        self.player_turn = player_1
         
 
 
@@ -81,20 +82,11 @@ class Othello(arcade.Window):
         elif self.player_turn == player_2:
             self.player_turn = player_1
 
-    def determine_first_player(self):
-        self.first_player_choose = random.randint(0,1)
-        if self.first_player_choose == 1:
-            arcade.draw_text(str(player_1) + " starts!" , 750, 420, arcade.color.BLACK, 30)
-            self.player_1_turn()
-
-        else:
-            arcade.draw_text(str(player_2) + " starts!" , 750, 420, arcade.color.BLACK, 30)
-            self.player_2_turn()
-
 
 
     def flip_pieces(self):
         pass
+                
     def check_winner(self):
         if self.black_moves + self.white_moves == (rows * rows):
             if self.player_2_score > self.player_1_score:
@@ -122,6 +114,8 @@ class Othello(arcade.Window):
         self.current_piece.center_y = y
         self.othello_piece_list.append(self.current_piece)
         self.place_piece()
+        self.flip_pieces()
+        
         
     def place_piece(self):
         for i in range(0,SCREEN_HEIGHT, self.square_dist):
@@ -136,12 +130,15 @@ class Othello(arcade.Window):
                 self.y +=1
         if self.player_turn == player_1:
             self.board_array[rows-1-self.y, self.x] = 1
+            self.piece_start_flip = [rows-1-self.y, self.x]
         else:
             self.board_array[rows-1-self.y, self.x] = 2
+            self.piece_start_flip = [rows-1-self.y, self.x]
+
         self.x = 0
         self.y = 0
-        self.next_turn()
         print(self.board_array)
+        self.next_turn()
 
 
 

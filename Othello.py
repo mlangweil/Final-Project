@@ -43,7 +43,9 @@ class Othello(arcade.Window):
         self.othello_piece_list = None
         self.black_piece = None
         self.white_piece = None
-
+        self.MOVE_DIRS = [(-1, -1), (-1, 0), (-1, +1),
+             (0, -1),           (0, +1),
+             (+1, -1), (+1, 0), (+1, +1)]
         
         self.player_2_score = 0
         self.player_1_score = 0
@@ -56,7 +58,10 @@ class Othello(arcade.Window):
         self.x = 0
         self.player_1_number = 1
         self.player_2_number = 2
-        self.change_piece = 0
+        self.change_piece = False
+        self.i = 0
+        self.row = 0
+        self.col = 0
      
 
         
@@ -67,9 +72,6 @@ class Othello(arcade.Window):
         self.white_piece = arcade.Sprite(":resources:onscreen_controls/shaded_light/unchecked.png", piece_size/25)
         self.player_turn = player_1
         
-
-
-
 
     def show_score(self):
         arcade.draw_text(str(player_1) + "'s score:\n" + str(self.player_1_score) , 720, 320, arcade.color.BLACK, 30)
@@ -85,7 +87,17 @@ class Othello(arcade.Window):
 
 
     def flip_pieces(self):
-        pass
+        if self.player_turn == player_1:
+            for direction in self.MOVE_DIRS:
+                while self.change_piece == True or (self.i == rows - self.row) or (self.i == rows - self.col):
+                    self.row = self.start_row + (direction[0] * self.i)
+                    self.col = self.start_column + (direction[1] * self.i)
+                    self.i+=1
+
+                    print(self.row)
+                if self.board_array[self.row,self.col] == 2:
+                    self.board_array[self.row,self.col] == 1
+                
                 
     def check_winner(self):
         if self.black_moves + self.white_moves == (rows * rows):
@@ -130,17 +142,18 @@ class Othello(arcade.Window):
                 self.y +=1
         if self.player_turn == player_1:
             self.board_array[rows-1-self.y, self.x] = 1
-            self.piece_start_flip = [rows-1-self.y, self.x]
+            self.start_row = rows-1-self.y +1
+            self.start_column = self.x +1
         else:
             self.board_array[rows-1-self.y, self.x] = 2
-            self.piece_start_flip = [rows-1-self.y, self.x]
+            self.start_row = rows-1-self.y+1
+            self.start_column = self.x+1
+            print(self.start_row)
 
         self.x = 0
         self.y = 0
         print(self.board_array)
         self.next_turn()
-
-
 
        
         

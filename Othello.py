@@ -43,10 +43,7 @@ class Othello(arcade.Window):
         self.othello_piece_list = None
         self.black_piece = None
         self.white_piece = None
-        self.MOVE_DIRS = [(-1, -1), (-1, 0), (-1, +1),
-             (0, -1),           (0, +1),
-             (+1, -1), (+1, 0), (+1, +1)]
-        
+        self.MOVE_DIRS = [(-1, -1), (-1, 0), (-1, 1),(0, -1),(0, 1),(1, -1), (1, 0), (+1, 1)]
         self.player_2_score = 0
         self.player_1_score = 0
         self.player_turn = ""
@@ -93,10 +90,22 @@ class Othello(arcade.Window):
                     self.row = self.start_row + (direction[0] * self.i)
                     self.col = self.start_column + (direction[1] * self.i)
                     self.i+=1
-
                     print(self.row)
                 if self.board_array[self.row,self.col] == 2:
                     self.board_array[self.row,self.col] == 1
+                else: 
+                    break
+        if self.player_turn == player_2:
+            for direction in self.MOVE_DIRS:
+                while self.change_piece == True or (self.i == rows - self.row) or (self.i == rows - self.col):
+                    self.row = self.start_row + (direction[0] * self.i)
+                    self.col = self.start_column + (direction[1] * self.i)
+                    self.i+=1
+                    print(self.row)
+                if self.board_array[self.row,self.col] == 1:
+                    self.board_array[self.row,self.col] == 2
+                else: 
+                    self.change_piece = False
                 
                 
     def check_winner(self):

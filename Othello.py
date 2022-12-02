@@ -60,6 +60,10 @@ class Othello(arcade.Window):
         self.row = 0
         self.col = 0
      
+    def calculate_score(self):
+        self.player_1_score = np.count_nonzero(self.board_array == 1)
+        self.player_2_score = np.count_nonzero(self.board_array == 2)
+
 
         
     def setup(self):
@@ -71,6 +75,7 @@ class Othello(arcade.Window):
         
 
     def show_score(self):
+        self.calculate_score()
         arcade.draw_text(str(player_1) + "'s score:\n" + str(self.player_1_score) , 720, 320, arcade.color.BLACK, 30)
         arcade.draw_text(str(player_2) + "'s score:\n" + str(self.player_2_score) , 720, 220, arcade.color.BLACK, 30)
 

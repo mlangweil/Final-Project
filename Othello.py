@@ -72,10 +72,14 @@ class Othello(arcade.Window):
         self.black_piece = arcade.Sprite(":resources:onscreen_controls/shaded_dark/unchecked.png", piece_size/25)
         self.white_piece = arcade.Sprite(":resources:onscreen_controls/shaded_light/unchecked.png", piece_size/25)
         self.player_turn = player_1
-        
+
+    def player_turn_display(self):
+        arcade.draw_text(str(self.player_turn) + "'s turn!", 720, 620, arcade.color.RED, 30)
+
 
     def show_score(self):
         self.calculate_score()
+        self.player_turn_display()
         arcade.draw_text(str(player_1) + "'s score:\n", 720, 320, arcade.color.BLACK, 30)
         arcade.draw_text(str(self.player_1_score), 780,280, arcade.color.BLACK, 30)
         arcade.draw_text(str(player_2) + "'s score:\n", 720, 220, arcade.color.BLACK, 30)

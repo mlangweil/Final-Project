@@ -117,13 +117,15 @@ class Othello(arcade.Window):
                 
                 
     def check_winner(self):
-        if self.black_moves + self.white_moves == (rows * rows):
+        if self.player_1_score + self.player_2_score == (rows * rows):
+            arcade.draw_rectangle_filled(SCREEN_HEIGHT/2, SCREEN_HEIGHT/2, SCREEN_WIDTH*2, SCREEN_WIDTH*2, arcade.color.WHITE)
             if self.player_2_score > self.player_1_score:
-                pass
+                arcade.draw_text(str(player_2) + " wins with a score of " + str(self.player_2_score), SCREEN_HEIGHT/2, SCREEN_HEIGHT/2, arcade.color.BLACK, 30)
             elif self.player_1_score > self.player_2_score:
-                pass
+                arcade.draw_text(str(player_1) + " wins with a score of " + str(self.player_1_score), SCREEN_HEIGHT/2, SCREEN_HEIGHT/2, arcade.color.BLACK, 30)
             else:
-                pass
+                arcade.draw_text("It's a tie!", SCREEN_HEIGHT/2, SCREEN_HEIGHT/2, arcade.color.BLACK, 30)
+
     def player_1_turn(self):
         self.player_turn = player_1
 
@@ -180,6 +182,8 @@ class Othello(arcade.Window):
         board.draw_game_board()
         self.othello_piece_list.draw()
         self.show_score()
+        self.check_winner()
+
        
 rows= 1  
 while rows < 4 or rows %2 ==1 :

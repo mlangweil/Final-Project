@@ -124,9 +124,9 @@ class Othello(arcade.Window):
         if self.player_1_score + self.player_2_score == (rows * rows):
             arcade.draw_rectangle_filled(SCREEN_HEIGHT/2, SCREEN_HEIGHT/2, SCREEN_WIDTH*2, SCREEN_WIDTH*2, arcade.color.WHITE)
             if self.player_2_score > self.player_1_score:
-                arcade.draw_text(str(player_2) + " wins with a score of " + str(self.player_2_score), SCREEN_HEIGHT/2, SCREEN_HEIGHT/2, arcade.color.BLACK, 30)
+                arcade.draw_text(str(player_2) + " wins with a score of " + str(self.player_2_score)+"!", SCREEN_HEIGHT/2, SCREEN_HEIGHT/2, arcade.color.BLACK, 30)
             elif self.player_1_score > self.player_2_score:
-                arcade.draw_text(str(player_1) + " wins with a score of " + str(self.player_1_score), SCREEN_HEIGHT/2, SCREEN_HEIGHT/2, arcade.color.BLACK, 30)
+                arcade.draw_text(str(player_1) + " wins with a score of " + str(self.player_1_score)+"!", SCREEN_HEIGHT/2, SCREEN_HEIGHT/2, arcade.color.BLACK, 30)
             else:
                 arcade.draw_text("It's a tie!", SCREEN_HEIGHT/2, SCREEN_HEIGHT/2, arcade.color.BLACK, 30)
 

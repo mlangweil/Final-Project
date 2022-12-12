@@ -243,8 +243,8 @@ rows= 1
 while rows < 4 or rows %2 ==1 :
     rows = int(input("Enter how many rows you want the game board to be (must begreater than 4 and even)"))
 
-player_1 = str(input("Who wants to be player 1."))
-player_2 = str(input("Who wants to be player 2."))
+player_1 = str(input("Who wants to be player 1?"))
+player_2 = str(input("Who wants to be player 2?"))
 piece_size = int(250//rows)
 board = Game_Board(arcade.color.FOREST_GREEN, rows)
 def main():

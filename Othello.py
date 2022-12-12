@@ -47,14 +47,11 @@ class Othello(arcade.Window):
         self.player_2_score = 0
         self.player_1_score = 0
         self.player_turn = ""
-        self.black_moves = 0
-        self.white_moves = 0
+      
         self.square_dist = SCREEN_HEIGHT//rows
         self.board_array = np.zeros(shape=(rows, rows), dtype=int)
         self.y = 0
         self.x = 0
-        self.player_1_number = 1
-        self.player_2_number = 2
         self.change_piece = False
         self.i = 0
         self.row = 0

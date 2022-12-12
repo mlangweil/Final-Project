@@ -12,7 +12,8 @@ Instructions:
 3. Input how many rows you want the board to be
 4. Input player 1 name
 5. Input player 2 name
-6. Click on the center of a tile to place a piece
+6. Click on the center of a tile to place a piece when its your turn
+(Unfortunately I was not able to make the tiles auto flip so work around that)
 
 Future directions:
 To develop this program further, someone should add...

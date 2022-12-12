@@ -231,7 +231,10 @@ class Othello(arcade.Window):
        
         
     def on_draw(self):
-        """ Called whenever we need to draw the window. """
+        """ Called whenever we need to draw the window
+        
+        Input: Self
+        Output: Drawing """
         arcade.start_render()
         board.draw_game_board()
         self.othello_piece_list.draw()

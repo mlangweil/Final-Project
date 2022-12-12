@@ -7,10 +7,7 @@ SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 700
 SCREEN_TITLE = "Othello"
 SCALING = 2.0
-
-
-
-        
+    
 
 class Game_Board():
     def __init__(self, color, rows):
@@ -20,6 +17,11 @@ class Game_Board():
 
        
     def draw_game_board(self):
+        """Draws the game board
+
+        Input: Self
+        Output: Drawing
+        """
         arcade.draw_rectangle_filled(SCREEN_HEIGHT/2, SCREEN_HEIGHT/2, SCREEN_HEIGHT, SCREEN_HEIGHT, self.color)
         arcade.draw_line(2, 00, 2, SCREEN_HEIGHT, arcade.color.BLACK, 3)
         arcade.draw_line(SCREEN_HEIGHT, 00, SCREEN_HEIGHT, SCREEN_HEIGHT, arcade.color.BLACK, 3)
@@ -36,8 +38,6 @@ class Game_Board():
 class Othello(arcade.Window):
 
     def __init__(self):
-        """Initialize the game
-        """
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
         arcade.set_background_color(arcade.color.WHITE) 
         self.othello_piece_list = None
@@ -61,6 +61,10 @@ class Othello(arcade.Window):
         self.col = 0
      
     def calculate_score(self):
+        """Calculates each players score
+        Input: Self
+        Output: Integer
+        """
         self.player_1_score = np.count_nonzero(self.board_array == 1)
         self.player_2_score = np.count_nonzero(self.board_array == 2)
     
@@ -74,10 +78,20 @@ class Othello(arcade.Window):
         self.player_turn = player_1
 
     def player_turn_display(self):
+        """Displays whose turn it is as a drawing
+        
+        Input: Self
+        Output: Integer
+        """
         arcade.draw_text(str(self.player_turn) + "'s turn!", 720, 620, arcade.color.RED, 30)
 
 
     def show_score(self):
+        """Displays the score as a drawing
+        
+        Input: Self
+        Output: Drawing
+        """
         self.calculate_score()
         self.player_turn_display()
         arcade.draw_text(str(player_1) + "'s score:\n", 720, 320, arcade.color.BLACK, 30)
@@ -88,6 +102,11 @@ class Othello(arcade.Window):
 
 
     def next_turn(self):
+        """ Updates who's turn it is
+        
+        Input: Self
+        Output: String
+        """
         if self.player_turn == player_1:
             self.player_turn = player_2
         elif self.player_turn == player_2:
@@ -96,6 +115,11 @@ class Othello(arcade.Window):
 
 
     def flip_pieces(self):
+        """Auto flips the pieces on the game board
+
+        Input: Self
+        Output: Matrix
+        """
         if self.player_turn == player_1:
             for direction in self.MOVE_DIRS:
                 while self.change_piece == True or (self.i == rows - self.row) or (self.i == rows - self.col):
@@ -121,6 +145,11 @@ class Othello(arcade.Window):
                 
                 
     def check_winner(self):
+        """Draws who the winner is and presents a win screen
+        
+        Input: Self
+        Output: Drawing
+        """
         if self.player_1_score + self.player_2_score == (rows * rows):
             arcade.draw_rectangle_filled(SCREEN_HEIGHT/2, SCREEN_HEIGHT/2, SCREEN_WIDTH*2, SCREEN_WIDTH*2, arcade.color.WHITE)
             if self.player_2_score > self.player_1_score:
@@ -131,13 +160,29 @@ class Othello(arcade.Window):
                 arcade.draw_text("It's a tie!", SCREEN_HEIGHT/2, SCREEN_HEIGHT/2, arcade.color.BLACK, 30)
 
     def player_1_turn(self):
+        """Sets the current turn as player 1's
+        
+        Input: Self
+        Output: String
+        """
         self.player_turn = player_1
 
     def player_2_turn(self):
+        """Sets the current turn as player 2's
+        
+        Input: Self
+        Output: String
+        
+        """
         self.player_turn = player_2
 
 
     def on_mouse_press(self, x, y, button, modifiers):
+        """Places a piece on the board using a user click
+        
+        Input: Self, Float, Float
+        Output: Drawing, List
+        """
         self.black_piece = arcade.Sprite(":resources:onscreen_controls/shaded_dark/unchecked.png", piece_size/25)
         self.white_piece = arcade.Sprite(":resources:onscreen_controls/shaded_light/unchecked.png", piece_size/25)
 
@@ -153,6 +198,11 @@ class Othello(arcade.Window):
         
         
     def place_piece(self):
+        """Places the users piece in a matrix
+
+        Input: Self
+        Output: Matrix
+        """
         for i in range(0,SCREEN_HEIGHT, self.square_dist):
             if i< self.current_piece.center_x < self.square_dist + i: 
                 break
